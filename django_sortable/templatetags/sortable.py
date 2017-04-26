@@ -1,5 +1,7 @@
 from django import template
 from django.conf import settings
+from django.template import TemplateSyntaxError
+from django.utils import six
 
 register = template.Library()
 
@@ -36,7 +38,7 @@ def parse_tag_token(token):
     except IndexError:
         img_url = None
 
-    return (bits[1].strip(), title.strip(), format_string, img_url)
+    return bits[1].strip(), title.strip(), format_string, img_url
 
 
 class SortableLinkNode(template.Node):
@@ -91,7 +93,7 @@ class SortableLinkNode(template.Node):
         params = "&%s" % (get_params.urlencode(),) if len(get_params.keys()) > 0 else ''
         url = ('%s?sort=%s%s' % (context['request'].path, self.field_name, params)).replace('&', '&amp;')
 
-        return (url, css_class, is_current)
+        return url, css_class, is_current
 
     def render(self, context):
         url, css_class, is_current = self.build_link(context)
@@ -127,7 +129,7 @@ class SortableFormattableNode(SortableLinkNode):
         try:
             format_string = self.format_string.resolve(context)
         except:
-            format_string = unicode(self.format_string) or None
+            format_string = six.text_type(self.format_string) or None
         try:
             img_url = self.img_url.resolve(context)
         except:
