@@ -4,6 +4,9 @@ The objective of django-sortable is to provide a flexible way to handle sorting 
 
 Like pagination in Django, django-sortable works on a variety of data-types. When possible, an `order_by` clause will be added to a QuerySet but django-sortable also handles lists or tuples of dictionaries or objects. Support is also available for building the `ORDER BY` clause of a SQL query.
 
+Updated version of https://github.com/drewyeaton/django-sortable.
+
+modified to be able top use with python 3 and django 2.0 and newer.
 
 ##Installation
 

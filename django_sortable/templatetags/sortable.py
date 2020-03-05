@@ -1,7 +1,6 @@
 from django import template
 from django.conf import settings
 from django.template import TemplateSyntaxError
-from django.utils import six
 
 register = template.Library()
 
@@ -129,7 +128,7 @@ class SortableFormattableNode(SortableLinkNode):
         try:
             format_string = self.format_string.resolve(context)
         except:
-            format_string = six.text_type(self.format_string) or None
+            format_string = str(self.format_string) or None
         try:
             img_url = self.img_url.resolve(context)
         except:
